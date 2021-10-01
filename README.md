@@ -36,7 +36,7 @@ You have two options to get started,
      * Approving/denying accounts
      * withdrawing, depositing, transferring from all accounts
      * canceling accounts
-*	Reasonable test coverage for the service layer is expected using JUnit.
+*	Reasonable test coverage for the controller layer is expected using JUnit.
      * TDD is encouraged.
 *	Logging should be accomplished using Log4J
      * All transactions should be logged
@@ -57,7 +57,7 @@ The project will be evaluated out of 100 points split between two main catagorie
 * 10 pts: Login, register, update and logout functionality for users.
 * 5 pts: Proper use of DAO design pattern.
 * 5 pts: Different user roles with different levels of access implemented correctly.
-* 5 pts: Reasonable test coverage of the service layer and proper logging.
+* 5 pts: Reasonable test coverage of the controller layer and proper logging.
 * 5 pts: Appropriate validation for user inputs.
 
 

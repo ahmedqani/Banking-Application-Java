@@ -12,9 +12,25 @@ public interface UserDao {
      */
     List<User> getAllUsers();
 
+    User getUser(int userid);
+
+    void deleteUser(int userid);
+
     /**
      * Used to persist the user to the datastore
      * @param userToRegister
      */
-    void saveAnimal(User userToRegister) throws Exception;
+
+    void saveUser(User userToRegister) throws Exception;
+
+    /**
+     * Used to persist the user to the datastore
+     * @param userBalanceToUpdate
+     */
+    void updateUserBalance(User userBalanceToUpdate) throws Exception;
+
+
+    void updateUserRole(User userRoleToUpdate) throws Exception;
+
+    void activateUser(User userToActivate) throws Exception;
 }
