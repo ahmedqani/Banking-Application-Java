@@ -2,6 +2,7 @@ package controller;
 
 import dao.DAOUtilities;
 import dao.UserDao;
+import exceptions.InvalidCredentialsException;
 import model.User;
 
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -18,10 +19,19 @@ public class UserController {
     public User getUser(int userId){
         return dao.getUser(userId);
     }
+    public User loginUser(String username, String password) throws InvalidCredentialsException {
+            User user = dao.getUserByName(username);
+            if (user.getPassword().equals(password)){
+                return user;
+            }else {
+                return null;
+            }
+    }
+
     public void deleteUser(int userId){
         dao.deleteUser(userId);
     }
-    public void saveUser(User userToSave){
+    public User saveUser(User userToSave){
         try {
             dao.saveUser(userToSave);
         } catch (SQLIntegrityConstraintViolationException e) {
@@ -31,6 +41,7 @@ public class UserController {
             e.printStackTrace();
             System.out.println("There was a problem creating the User at this time");
         }
+        return userToSave;
     }
 
 

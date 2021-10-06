@@ -14,6 +14,8 @@ public interface UserDao {
 
     User getUser(int userid);
 
+    User getUserByName(String username);
+
     void deleteUser(int userid);
 
     /**
@@ -21,7 +23,7 @@ public interface UserDao {
      * @param userToRegister
      */
 
-    void saveUser(User userToRegister) throws Exception;
+    User saveUser(User userToRegister) throws Exception;
 
     /**
      * Used to persist the user to the datastore
@@ -33,4 +35,8 @@ public interface UserDao {
     void updateUserRole(User userRoleToUpdate) throws Exception;
 
     void activateUser(User userToActivate) throws Exception;
+
+
+
+
 }

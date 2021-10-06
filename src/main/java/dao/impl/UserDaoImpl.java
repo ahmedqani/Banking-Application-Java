@@ -99,6 +99,48 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public User getUserByName(String username) {
+        User user = new User();
+        Connection connection = null;
+        PreparedStatement stmt = null;
+
+        try {
+            connection = DAOUtilities.getConnection();
+
+            String sql = "SELECT * FROM USER WHERE username = ?";
+            stmt = connection.prepareStatement(sql);
+            stmt.setString(1, username);
+
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()){
+                user.setId(rs.getLong("userid"));
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+                user.setUserRole(rs.getString("user_role"));
+                user.setBalance(rs.getLong("balance"));
+                user.setAccountIsActive(Boolean.parseBoolean(rs.getString("is_active")));
+            }else {
+                user.setId(0);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return user;
+    }
+    @Override
     public void deleteUser(int userid) {
         Connection connection = null;
         PreparedStatement stmt = null;
@@ -131,7 +173,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void saveUser(User userToRegister) throws Exception {
+    public User saveUser(User userToRegister) throws Exception {
         Connection connection = null;
         PreparedStatement stmt = null;
         int success = 0;
@@ -153,6 +195,7 @@ public class UserDaoImpl implements UserDao {
 
 
             success = stmt.executeUpdate();
+            return userToRegister;
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -171,6 +214,7 @@ public class UserDaoImpl implements UserDao {
             throw new Exception("Insert user failed: " + userToRegister);
         }
 
+        return userToRegister;
     }
 
     @Override
