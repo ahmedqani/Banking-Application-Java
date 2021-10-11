@@ -5,15 +5,22 @@ public class Transaction {
     private long amount;
     private String fromUserName;
     private TransactionType transactionType;
-    private long toUserId;
+    private String toUserName;
 
     public Transaction() {
     }
 
-    public Transaction(long amount,String fromUserName, TransactionType transactionType, long toUserId) {
+    public Transaction(long amount, String fromUserName, TransactionType transactionType) {
         this.fromUserName = fromUserName;
         this.transactionType = transactionType;
-        this.toUserId = toUserId;
+        this.toUserName = "ATM";
+        this.amount = amount;
+    }
+
+    public Transaction(long amount,String fromUserName, TransactionType transactionType, String toUserName) {
+        this.fromUserName = fromUserName;
+        this.transactionType = transactionType;
+        this.toUserName = toUserName;
         this.amount = amount;
     }
 
@@ -63,12 +70,12 @@ public class Transaction {
 
     }
 
-    public long getToUserId() {
-        return toUserId;
+    public String getToUserName() {
+        return toUserName;
     }
 
-    public void setToUserId(long toUserId) {
-        this.toUserId = toUserId;
+    public void setToUserName(String toUserName) {
+        this.toUserName = toUserName;
     }
 
     @Override
@@ -78,7 +85,7 @@ public class Transaction {
                 ", amount=" + amount +
                 ", fromUserName='" + fromUserName + '\'' +
                 ", transactionType=" + transactionType +
-                ", toUserId=" + toUserId +
+                ", toUserName='" + toUserName + '\'' +
                 '}';
     }
 }

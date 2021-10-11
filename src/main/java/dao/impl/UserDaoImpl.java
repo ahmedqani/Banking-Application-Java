@@ -318,6 +318,12 @@ public class UserDaoImpl implements UserDao {
 
 
             success = stmt.executeUpdate();
+            if (userToActivate.isAccountIsActive()){
+                System.out.println("User has been Activated ");
+            }
+            if (!userToActivate.isAccountIsActive()){
+                System.out.println("User account has been Denied Or Closed!");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

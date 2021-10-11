@@ -3,6 +3,7 @@ package dao.impl;
 import dao.DAOUtilities;
 import dao.TransactionDao;
 import model.Transaction;
+import model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class TransactionDaoImpl implements TransactionDao {
                 a.setAmount(rs.getLong("amount"));
                 a.setFromUserName(rs.getString("from_Username"));
                 a.setTransactionType(rs.getString("transaction_type"));
-                a.setToUserId(rs.getLong("to_UserId"));
+                a.setToUserName(rs.getString("to_Username"));
 
                 transactions.add(a);
             }
@@ -55,6 +56,49 @@ public class TransactionDaoImpl implements TransactionDao {
     }
 
     @Override
+    public List<Transaction> getTransactionByUser(User user) {
+        List<Transaction> transactions = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement stmt = null;
+
+        try {
+            connection = DAOUtilities.getConnection();
+
+            String sql = "SELECT * FROM TRANSACTION WHERE from_username = ?";
+            stmt = connection.prepareStatement(sql);
+            stmt.setString(1, user.getUsername());
+
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Transaction a = new Transaction();
+                a.setId(rs.getLong("transaction_id"));
+                a.setAmount(rs.getLong("amount"));
+                a.setFromUserName(rs.getString("from_Username"));
+                a.setTransactionType(rs.getString("transaction_type"));
+                a.setToUserName(rs.getString("to_Username"));
+
+                transactions.add(a);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return transactions;
+    }
+
+    @Override
     public Transaction getTransaction(int transactionid) {
         Transaction transaction = new Transaction();
         Connection connection = null;
@@ -74,7 +118,7 @@ public class TransactionDaoImpl implements TransactionDao {
                 transaction.setAmount(rs.getLong("amount"));
                 transaction.setFromUserName(rs.getString("from_username"));
                 transaction.setTransactionType(rs.getString("transaction_type"));
-                transaction.setToUserId(rs.getLong("to_userid"));
+                transaction.setToUserName(rs.getString("to_username"));
             }else {
                 transaction.setId(0);
             }
@@ -146,7 +190,7 @@ public class TransactionDaoImpl implements TransactionDao {
             stmt.setLong(2, transactionToRegister.getAmount());
             stmt.setString(3, transactionToRegister.getFromUserName());
             stmt.setString(4, transactionToRegister.getTransactionType());
-            stmt.setLong(5, transactionToRegister.getToUserId());
+            stmt.setString(5, transactionToRegister.getToUserName());
 
 
 
