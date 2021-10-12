@@ -220,41 +220,6 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void updateUserBalance(User userBalanceToUpdate) throws Exception {
 
-        Connection connection = null;
-        PreparedStatement stmt = null;
-        int success = 0;
-
-        try {
-            connection = DAOUtilities.getConnection();
-            String sql = "update user set balance = ? where userid = ?";
-
-
-            // Setup PreparedStatement
-            stmt = connection.prepareStatement(sql);
-
-            // Add parameters from user into PreparedStatement
-            stmt.setLong(1, userBalanceToUpdate.getBalance());
-            stmt.setLong(2, userBalanceToUpdate.getId());
-
-
-            success = stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (stmt != null)
-                    stmt.close();
-                if (connection != null)
-                    connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
-        if (success == 0) {
-            // then update didn't occur, throw an exception
-            throw new Exception("Insert user failed: " + userBalanceToUpdate);
-        }
     }
 
     @Override

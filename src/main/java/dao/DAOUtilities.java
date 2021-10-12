@@ -1,5 +1,6 @@
 package dao;
 
+import dao.impl.AccountsDaoImpl;
 import dao.impl.TransactionDaoImpl;
 import dao.impl.UserDaoImpl;
 
@@ -23,6 +24,7 @@ public class DAOUtilities {
 	private static UserDaoImpl userDaoImpl;
 	private static Connection connection;
 	private static TransactionDaoImpl transactionDaoImpl;
+	private static AccountsDaoImpl accountsDaoImpl;
 
 	public static synchronized UserDao getUserDao() {
 
@@ -38,6 +40,13 @@ public class DAOUtilities {
 			transactionDaoImpl = new TransactionDaoImpl();
 		}
 		return transactionDaoImpl;
+	}
+	public static synchronized AccountsDao getAccountDao() {
+
+		if (accountsDaoImpl == null) {
+			accountsDaoImpl= new AccountsDaoImpl();
+		}
+		return accountsDaoImpl;
 	}
 
 	public static synchronized Connection getConnection() throws SQLException {

@@ -35,6 +35,11 @@ public class UserController {
         dao.activateUser(user);
     }
 
+    public void updateUserRole(User user) throws Exception {
+        dao.updateUserRole(user);
+        System.out.printf("%s account role has been changed to %s \n", user.getUsername(), user.getUserRole());
+    }
+
 
     public void deleteUser(int userId){
         dao.deleteUser(userId);

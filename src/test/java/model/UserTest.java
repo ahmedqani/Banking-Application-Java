@@ -1,39 +1,72 @@
 package model;
 
 import junit.framework.TestCase;
+import org.junit.Test;
+
+import javax.crypto.spec.PSource;
 
 public class UserTest extends TestCase {
 
-    public void testGetId() {
+    public User user = new User("TestName","Pass",UserRole.USER,200,true);
+
+
+
+
+    @Test
+    public void getId() {
     }
 
-    public void testSetId() {
+    @Test
+    public void setId() {
     }
 
-    public void testGetUsername() {
+    @Test
+    public void getUsername() {
     }
 
-    public void testSetUsername() {
+    @Test
+    public void setUsername() {
     }
 
-    public void testGetPassword() {
+    @Test
+    public void getPassword() {
     }
 
-    public void testSetPassword() {
+    @Test
+    public void setPassword() {
     }
 
-    public void testGetUserRole() {
+    @Test
+    public void getUserRole() {
     }
 
-    public void testSetUserRole() {
+    @Test
+    public void setUserRole() {
+        user.setUserRole("employee");
+        System.out.println(user.getUserRole());
+        String role = user.getUserRole();
+        System.out.println(role);
+        assertEquals("EMPLOYEE", role);
     }
 
-    public void testGetBalance() {
+    @Test
+    public void getBalance() {
+        assertEquals(1,1);
     }
 
-    public void testSetBalance() {
+    @Test
+    public void setBalance() {
     }
 
-    public void testTestToString() {
+    @Test
+    public void isAccountIsActive() {
+    }
+
+    @Test
+    public void setAccountIsActive() {
+    }
+
+    @Test
+    public void testToString() {
     }
 }

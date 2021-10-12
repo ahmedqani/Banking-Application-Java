@@ -1,19 +1,21 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
     private long id;
     private String username;
     private String password;
     private UserRole userRole;
-    private long balance;
+    private List<Accounts> accounts = new ArrayList<>();
     private boolean accountIsActive;
 
 
-    public User(String username, String password, UserRole userRole, long balance, boolean accountIsActive) {
+    public User(String username, String password, UserRole userRole, boolean accountIsActive) {
         this.username = username;
         this.password = password;
         this.userRole = userRole;
-        this.balance = balance;
         this.accountIsActive = accountIsActive;
     }
 
@@ -56,24 +58,25 @@ public class User {
         }
     }
 
-    public void setUserRole(String userRole) {
+    public UserRole setUserRole(String userRole) {
         if (userRole.equalsIgnoreCase("employee")){
-            this.userRole = UserRole.EMPLOYEE ;
+           return this.userRole = UserRole.EMPLOYEE ;
         }
         if (userRole.equalsIgnoreCase("admin")){
             this.userRole = UserRole.ADMIN ;
-        }else {
+        }
+        if(userRole.equalsIgnoreCase("user")) {
             this.userRole = UserRole.USER ;
         }
-
+        return null;
     }
 
-    public long getBalance() {
-        return balance;
+    public List<Accounts> getAccounts() {
+        return accounts;
     }
 
-    public void setBalance(long balance) {
-        this.balance = balance;
+    public void setAccounts(Accounts accounts) {
+        this.accounts.add(accounts);
     }
 
     public boolean isAccountIsActive() {
@@ -84,7 +87,6 @@ public class User {
         this.accountIsActive = accountIsActive;
     }
 
-
     @Override
     public String toString() {
         return "User{" +
@@ -92,7 +94,8 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", userRole=" + userRole +
-                ", balance=" + balance +
+                ", accounts=" + accounts +
+                ", accountIsActive=" + accountIsActive +
                 '}';
     }
 }

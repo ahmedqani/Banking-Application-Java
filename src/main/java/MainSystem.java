@@ -63,7 +63,7 @@ public class MainSystem {
             while (loggedin) {
                 if (currentUser.isAccountIsActive()) {
                     if (currentUser.getUserRole().equalsIgnoreCase("user")) {
-                        System.out.printf("Welcome User %s To Logout please Press 1 anytime!\n", currentUser.getUsername());
+                        System.out.printf("Welcome User %s To Logout please Press 1 !\n", currentUser.getUsername());
                         System.out.print("Press 2 To start a new Transaction!");
                         System.out.print("Press 3 To check all of your previous Transactions!");
 
@@ -76,9 +76,10 @@ public class MainSystem {
                         if (transactionOption(in, currentUser, choice)) continue;
                     }
                     if (currentUser.getUserRole().equalsIgnoreCase("employee")) {
-                        System.out.printf("Welcome Employee %s To Logout please Press 1 anytime!\n", currentUser.getUsername());
+                        System.out.printf("Welcome Employee %s To Logout please Press 1 !\n", currentUser.getUsername());
                         System.out.print("Press 2 To start a new Transaction!");
                         System.out.print("Press 3 To check all of your previous Transactions!");
+                        System.out.println("Press 4 to Checkout Employee Options");
 
                         int choice = Integer.parseInt(in.nextLine());
                         if (choice == 1) {
@@ -87,9 +88,10 @@ public class MainSystem {
                             done = true;
                         }
                         if (transactionOption(in, currentUser, choice)) continue;
+                        if (employeeOption(in, currentUser, choice)) continue;
                     }
                     if (currentUser.getUserRole().equalsIgnoreCase("admin")) {
-                        System.out.printf("Welcome Admin %s To Logout please Press 1 anytime! \n", currentUser.getUsername());
+                        System.out.printf("Welcome Admin %s To Logout please Press 1 \n", currentUser.getUsername());
                         System.out.println("Press 2 To start a new Transaction!");
                         System.out.println("Press 3 To check all of your previous Transactions!");
                         System.out.println("Press 4 to Checkout Admin Options");
@@ -104,7 +106,7 @@ public class MainSystem {
 
                     }
                 } else {
-                    System.out.println("Your Account isn't Active yet GoodBye!");
+                    System.out.println("Your Accounts isn't Active yet GoodBye!");
                     loggedin = false;
                     done = true;
                 }
@@ -148,8 +150,10 @@ public class MainSystem {
                 Transaction transaction = new Transaction(amount, currentUser.getUsername(), TransactionType.DEPOSIT);
                 transactionController.saveTransaction(transaction, currentUser, atm);
                 return true;
+            }else {
+                System.out.println("Exiting this current Menu! ");
+                return true;
             }
-            return true;
         }
         if (choice == 3) {
             System.out.println("Getting all of your Transactions....");
@@ -164,8 +168,8 @@ public class MainSystem {
 
     private static boolean adminOption(Scanner in, User currentUser, int choice) throws Exception {
         if (choice == 4) {
-            System.out.println("Welcome to Admin Panel");
-            System.out.println("please select 1 > Account Management; 2 > get all Transactions");
+            System.out.printf("Welcome %s to the Admin Panel \n", currentUser.getUsername());
+            System.out.println("please select 1 > Accounts Management; 2 > get all Transactions");
             int adminChoice = Integer.parseInt(in.nextLine());
             //Add Admin Options
             if (adminChoice == 1) {
@@ -179,11 +183,12 @@ public class MainSystem {
                 User userToEdit = userController.getUserByName(username);
                 while (userToEdit != null){
                     System.out.println("What would you like to do with this user!:");
-                    System.out.println("1 > Approve Account");
-                    System.out.println("2 > Deny new Account");
-                    System.out.println("3 > Cancel Account");
-                    System.out.println("4 > Manage Account");
-                    System.out.println("5 > Exit this Menu");
+                    System.out.println("1 > Approve Accounts");
+                    System.out.println("2 > Deny new Accounts");
+                    System.out.println("3 > Cancel Accounts");
+                    System.out.println("4 > Change Accounts Role");
+                    System.out.println("5 > Manage Accounts");
+                    System.out.println("6 > Exit this Menu");
                     int managedAccountChoice = Integer.parseInt(in.nextLine());
                     if (managedAccountChoice == 1){
                         userToEdit.setAccountIsActive(true);
@@ -191,14 +196,35 @@ public class MainSystem {
                     }
                     if (managedAccountChoice == 2 || managedAccountChoice == 3){
                         if (!userToEdit.isAccountIsActive()){
-                            System.out.println("Account is already disabled");
+                            System.out.println("Accounts is already disabled");
                         }else {
                             userToEdit.setAccountIsActive(false);
                             userController.isActive(userToEdit);
                         }
                     }
                     if (managedAccountChoice == 4){
-                            System.out.println("Account's Current Balance is >>");
+                        System.out.println("1-> User");
+                        System.out.println("2-> Employee");
+                        System.out.println("3-> Admin");
+                        int roleChoice = Integer.parseInt(in.nextLine());
+                        if (roleChoice == 1){
+                            userToEdit.setUserRole("USER");
+                            userController.updateUserRole(userToEdit);
+                        }
+                        if (roleChoice == 2){
+                            userToEdit.setUserRole("employee");
+                            userController.updateUserRole(userToEdit);
+                        }
+                        if (roleChoice == 3) {
+                            userToEdit.setUserRole("admin");
+                            userController.updateUserRole(userToEdit);
+                        }else {
+                            System.out.println("Exiting this current Menu! ");
+                            return true;
+                        }
+                    }
+                    if (managedAccountChoice == 5){
+                            System.out.println("Accounts's Current Balance is >>");
                             System.out.println(userToEdit.getBalance());
                             System.out.println("please select 1 > Transfer; 2 > Withdrew; 3 > deposit");
                             int type = Integer.parseInt(in.nextLine());
@@ -229,9 +255,12 @@ public class MainSystem {
                                 User atm = userController.getUser(4);
                                 Transaction transaction = new Transaction(amount, userToEdit.getUsername(), TransactionType.DEPOSIT);
                                 transactionController.saveTransaction(transaction, userToEdit, atm);
+                            }else {
+                                System.out.println("Exiting this current Menu! ");
+                                return true;
                             }
                     }
-                    if (managedAccountChoice == 5){
+                    if (managedAccountChoice == 6){
                         userToEdit = null;
                     }
                 }
@@ -241,6 +270,53 @@ public class MainSystem {
                 List<Transaction> allTransactions = transactionController.getAllTransactions();
                 for (Transaction transaction : allTransactions) {
                     System.out.println(transaction);
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+    private static boolean employeeOption(Scanner in, User currentUser, int choice) throws Exception {
+        if (choice == 4) {
+            System.out.printf("Welcome %s to the Employee Panel \n", currentUser.getUsername());
+            System.out.println("please select 1 > Accounts Management; 2 > get all Transactions");
+            int adminChoice = Integer.parseInt(in.nextLine());
+            //Add Admin Options
+            if (adminChoice == 1) {
+                System.out.println("Here is a list of all the accounts");
+                List<User> allUsers = userController.getAllUsers();
+                for (User user:allUsers){
+                    System.out.println(user);
+                }
+                System.out.println("Please Select a Username :");
+                String username = in.nextLine();
+                User userToEdit = userController.getUserByName(username);
+                while (userToEdit != null){
+                    System.out.println("What would you like to do with this user!:");
+                    System.out.println("1 > Approve Accounts");
+                    System.out.println("2 > Deny new Accounts");
+                    System.out.println("3 > Cancel Accounts");
+                    System.out.println("4 > Accounts Details");
+                    System.out.println("5 > Exit this Menu");
+                    int managedAccountChoice = Integer.parseInt(in.nextLine());
+                    if (managedAccountChoice == 1){
+                        userToEdit.setAccountIsActive(true);
+                        userController.isActive(userToEdit);
+                    }
+                    if (managedAccountChoice == 2 || managedAccountChoice == 3){
+                        if (!userToEdit.isAccountIsActive()){
+                            System.out.println("Accounts is already disabled");
+                        }else {
+                            userToEdit.setAccountIsActive(false);
+                            userController.isActive(userToEdit);
+                        }
+                    }
+                    if (managedAccountChoice == 4){
+                        System.out.println(userToEdit);
+                    }
+                    if (managedAccountChoice == 5){
+                        userToEdit = null;
+                    }
                 }
             }
             return true;
