@@ -44,12 +44,18 @@ public class Accounts {
 
     }
 
-    public AccountType getAccount_type() {
-        return account_type;
+    public String getAccount_type() {
+        if (this.account_type == AccountType.CHECKING){
+            return "CHECKING";
+        }
+        if (this.account_type == AccountType.SAVING) {
+            return "SAVING";
+        }
+        return null;
     }
 
     public void setAccount_type(String account_type) {
-       if (account_type.equalsIgnoreCase("CHECKIN")){
+       if (account_type.equalsIgnoreCase("CHECKING")){
            this.account_type = AccountType.CHECKING;
        }
         if (account_type.equalsIgnoreCase("SAVING")) {

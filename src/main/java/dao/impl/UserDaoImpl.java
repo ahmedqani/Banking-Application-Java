@@ -31,8 +31,6 @@ public class UserDaoImpl implements UserDao {
                 a.setUsername(rs.getString("username"));
                 a.setPassword(rs.getString("password"));
                 a.setUserRole(rs.getString("user_role"));
-                a.setBalance(rs.getLong("balance"));
-                a.setAccountIsActive(Boolean.parseBoolean(rs.getString("is_active")));
 
                 users.add(a);
             }
@@ -75,8 +73,6 @@ public class UserDaoImpl implements UserDao {
                 user.setUsername(rs.getString("username"));
                 user.setPassword(rs.getString("password"));
                 user.setUserRole(rs.getString("user_role"));
-                user.setBalance(rs.getLong("balance"));
-                user.setAccountIsActive(Boolean.parseBoolean(rs.getString("is_active")));
             }else {
                 user.setId(0);
             }
@@ -118,8 +114,6 @@ public class UserDaoImpl implements UserDao {
                 user.setUsername(rs.getString("username"));
                 user.setPassword(rs.getString("password"));
                 user.setUserRole(rs.getString("user_role"));
-                user.setBalance(rs.getLong("balance"));
-                user.setAccountIsActive(Boolean.parseBoolean(rs.getString("is_active")));
             }else {
                 user.setId(0);
             }
@@ -180,7 +174,7 @@ public class UserDaoImpl implements UserDao {
 
         try {
             connection = DAOUtilities.getConnection();
-            String sql = "INSERT INTO USER VALUES (?,?,?,?,?,?)";
+            String sql = "INSERT INTO USER VALUES (?,?,?,?)";
 
             // Setup PreparedStatement
             stmt = connection.prepareStatement(sql);
@@ -190,8 +184,6 @@ public class UserDaoImpl implements UserDao {
             stmt.setString(2, userToRegister.getUsername());
             stmt.setString(3, userToRegister.getPassword());
             stmt.setString(4, userToRegister.getUserRole());
-            stmt.setLong(5, userToRegister.getBalance());
-            stmt.setString(6, "false");
 
 
             success = stmt.executeUpdate();
@@ -217,10 +209,6 @@ public class UserDaoImpl implements UserDao {
         return userToRegister;
     }
 
-    @Override
-    public void updateUserBalance(User userBalanceToUpdate) throws Exception {
-
-    }
 
     @Override
     public void updateUserRole(User userRoleToUpdate) throws Exception {
@@ -262,51 +250,7 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-    @Override
-    public void activateUser(User userToActivate) throws Exception {
 
-        Connection connection = null;
-        PreparedStatement stmt = null;
-        int success = 0;
-
-        try {
-            connection = DAOUtilities.getConnection();
-            String sql = "update user set is_active = ? where userid = ?";
-
-
-            // Setup PreparedStatement
-            stmt = connection.prepareStatement(sql);
-
-            // Add parameters from user into PreparedStatement
-            stmt.setString(1, String.valueOf(userToActivate.isAccountIsActive()));
-            stmt.setLong(2, userToActivate.getId());
-
-
-            success = stmt.executeUpdate();
-            if (userToActivate.isAccountIsActive()){
-                System.out.println("User has been Activated ");
-            }
-            if (!userToActivate.isAccountIsActive()){
-                System.out.println("User account has been Denied Or Closed!");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (stmt != null)
-                    stmt.close();
-                if (connection != null)
-                    connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
-        if (success == 0) {
-            // then update didn't occur, throw an exception
-            throw new Exception("Insert user failed: " + userToActivate);
-        }
-    }
 
 
 }

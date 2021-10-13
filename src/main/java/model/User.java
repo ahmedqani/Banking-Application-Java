@@ -9,14 +9,12 @@ public class User {
     private String password;
     private UserRole userRole;
     private List<Accounts> accounts = new ArrayList<>();
-    private boolean accountIsActive;
 
 
-    public User(String username, String password, UserRole userRole, boolean accountIsActive) {
+    public User(String username, String password, UserRole userRole) {
         this.username = username;
         this.password = password;
         this.userRole = userRole;
-        this.accountIsActive = accountIsActive;
     }
 
     public User() {
@@ -75,16 +73,8 @@ public class User {
         return accounts;
     }
 
-    public void setAccounts(Accounts accounts) {
-        this.accounts.add(accounts);
-    }
-
-    public boolean isAccountIsActive() {
-        return accountIsActive;
-    }
-
-    public void setAccountIsActive(boolean accountIsActive) {
-        this.accountIsActive = accountIsActive;
+    public void setAccounts(List<Accounts> accounts) {
+        this.accounts.addAll(accounts);
     }
 
     @Override
@@ -95,7 +85,6 @@ public class User {
                 ", password='" + password + '\'' +
                 ", userRole=" + userRole +
                 ", accounts=" + accounts +
-                ", accountIsActive=" + accountIsActive +
                 '}';
     }
 }

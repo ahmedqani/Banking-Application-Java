@@ -27,14 +27,11 @@ public interface UserDao {
 
     /**
      * Used to persist the user to the datastore
-     * @param userBalanceToUpdate
+     * @param
      */
-    void updateUserBalance(User userBalanceToUpdate) throws Exception;
-
 
     void updateUserRole(User userRoleToUpdate) throws Exception;
 
-    void activateUser(User userToActivate) throws Exception;
 
 
 
