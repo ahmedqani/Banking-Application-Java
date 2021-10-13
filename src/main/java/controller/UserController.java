@@ -25,10 +25,15 @@ public class UserController {
         user.setAccounts(accountsDao.getUserAccounts(user.getUsername()));
         return user;
     }
-    public User getUserByName(String userName){
-        User user = dao.getUserByName(userName);
-        user.setAccounts(accountsDao.getUserAccounts(user.getUsername()));
-        return user;
+    public User getUserByName(String userName) throws InvalidCredentialsException {
+        try {
+            User user = dao.getUserByName(userName);
+            user.setAccounts(accountsDao.getUserAccounts(user.getUsername()));
+            return user;
+        }catch (NullPointerException e){
+            throw new InvalidCredentialsException();
+        }
+
     }
     public User loginUser(String username, String password) throws InvalidCredentialsException {
             User user = dao.getUserByName(username);
@@ -37,7 +42,7 @@ public class UserController {
             Logging.logger.info("User: " + username + " was logged in");
                 return user;
             }else {
-                return null;
+                throw new InvalidCredentialsException();
             }
     }
 

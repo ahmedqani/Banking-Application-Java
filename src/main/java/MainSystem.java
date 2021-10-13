@@ -14,7 +14,7 @@ public class MainSystem {
     private static final TransactionController transactionController = new TransactionController();
     private static final AccountsController accountController = new AccountsController();
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception, InvalidCredentialsException {
         Scanner in = new Scanner(System.in);
 
         System.out.println("Welcome To Banko!!");
@@ -28,18 +28,12 @@ public class MainSystem {
                 int choice = Integer.parseInt(in.nextLine());
                 if (choice == 1) {
                     System.out.print("Please enter your username: ");
-
                     String username = in.nextLine();
                     System.out.print("Please enter your password: ");
                     String password = in.nextLine();
-                    try {
-                        currentUser = userController.loginUser(username, password);
-                        System.out.println(currentUser);
-                        loggedin = true;
-                    } catch (InvalidCredentialsException e) {
-                        System.out.println("Username or password incorrect. Goodbye");
-                        done = true;
-                    }
+                    currentUser = userController.loginUser(username, password);
+                    System.out.println(currentUser);
+                    loggedin = true;
                     continue;
                 } else {
                     System.out.print("Please enter your username: ");
