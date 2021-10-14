@@ -2,3 +2,29 @@
 2021-10-12 22:57:22 WARN  Logging:38 - WAAAAAAARNING
 2021-10-12 23:00:59 INFO  Logging:37 - User: admin was logged in
 2021-10-12 23:00:59 WARN  Logging:38 - WAAAAAAARNING
+2021-10-12 23:49:25 INFO  Logging:42 - User: admin was logged in
+2021-10-12 23:50:36 INFO  Logging:42 - User: admin was logged in
+2021-10-12 23:51:03 INFO  Logging:95 - User: admin was logged OUT
+2021-10-12 23:51:31 INFO  Logging:62 - User: testo was Created
+2021-10-12 23:51:38 INFO  Logging:42 - User: testo was logged in
+2021-10-13 09:04:34 INFO  Logging:62 - User: testUser was Created
+2021-10-13 09:04:44 INFO  Logging:42 - User: testuser was logged in
+2021-10-13 09:05:07 INFO  Logging:23 - A new SAVING Account was Created for User: testUser
+2021-10-13 09:06:15 INFO  Logging:42 - User: admin was logged in
+2021-10-13 09:06:39 INFO  Logging:43 - The SAVING Account by the User testUser Has been Activated
+2021-10-13 09:07:19 WARN  Logging:52 - User: testUser 's Role has been changed to EMPLOYEE
+2021-10-13 09:07:22 INFO  Logging:95 - User: admin was logged OUT
+2021-10-13 09:07:53 INFO  Logging:42 - User: testuser was logged in
+2021-10-13 09:11:45 INFO  Logging:42 - User: admin was logged in
+2021-10-13 09:12:12 INFO  Logging:70 - User testUser Has successfully DEPOSITed the following amount: 2111 To user: atm
+2021-10-13 09:35:41 INFO  Logging:62 - User: test123 was Created
+2021-10-13 09:35:54 INFO  Logging:42 - User: test123 was logged in
+2021-10-13 09:36:21 INFO  Logging:23 - A new SAVING Account was Created for User: test123
+2021-10-13 09:37:22 INFO  Logging:42 - User: admin was logged in
+2021-10-13 09:37:55 INFO  Logging:43 - The SAVING Account by the User test123 Has been Activated
+2021-10-13 09:38:12 WARN  Logging:52 - User: test123 's Role has been changed to EMPLOYEE
+2021-10-13 09:38:31 INFO  Logging:95 - User: admin was logged OUT
+2021-10-13 09:38:45 INFO  Logging:42 - User: test123 was logged in
+2021-10-13 09:39:06 INFO  Logging:70 - User test123 Has successfully DEPOSITed the following amount: 20000 To user: atm
+2021-10-13 09:39:24 INFO  Logging:59 - User test123 Has successfully WITHDRAWed the following amount: 1500
+2021-10-13 09:39:57 INFO  Logging:59 - User test123 Has successfully TRANSFERed the following amount: 444
